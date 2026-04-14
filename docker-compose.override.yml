@@ -1,0 +1,13 @@
+# Development overrides — applied automatically by `docker compose up`
+# Merges with docker-compose.yml; do not use in production.
+services:
+  api:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    # Hot-reload is not supported in containers; rebuild on code changes.
+    # To iterate fast, use the local `https` launch profile instead.
+
+  postgres:
+    # Expose port so local tools (e.g. pgAdmin, DBeaver) can connect directly
+    ports:
+      - "5432:5432"

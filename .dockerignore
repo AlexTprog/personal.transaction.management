@@ -1,0 +1,16 @@
+**/.vs
+**/.vscode
+**/bin
+**/obj
+**/*.user
+**/*.suo
+**/*.swp
+.git
+.gitignore
+.gitattributes
+**/*.md
+docker-compose*.yml
+Dockerfile
+.env
+.env.*
+!.env.example
