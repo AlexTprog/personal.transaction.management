@@ -23,9 +23,9 @@ internal sealed class ScalarDocumentTransformer : IOpenApiDocumentTransformer
 		};
 
 		// Aplica el esquema a todos los endpoints
-		foreach (var operation in document.Paths.Values.SelectMany(p => p.Operations))
+		foreach (var operation in document.Paths.Values.SelectMany(p => p.Operations ?? []))
 		{
-			operation.Value.Security ??= new List<OpenApiSecurityRequirement>();
+			operation.Value.Security ??= [];
 			operation.Value.Security.Add(new OpenApiSecurityRequirement
 			{
 				[new OpenApiSecuritySchemeReference("Bearer", document)] = []

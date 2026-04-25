@@ -68,9 +68,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 				.Select(e => e.Entity)
 				.ToList();
 
-			pendingEvents = entitiesWithEvents
-				.SelectMany(e => e.DomainEvents)
-				.ToList();
+			pendingEvents = [.. entitiesWithEvents.SelectMany(e => e.DomainEvents)];
 
 			entitiesWithEvents.ForEach(e => e.ClearDomainEvents());
 

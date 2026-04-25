@@ -11,6 +11,6 @@ public sealed class GetAccountsByUserQueryHandler(IAccountRepository accountRepo
 	{
 		var accounts = await accountRepository.GetByUserIdAsync(request.UserId, cancellationToken);
 
-		return accounts.Select(AccountDto.FromEntity).ToList();
+		return [.. accounts.Select(AccountDto.FromEntity)];
 	}
 }
