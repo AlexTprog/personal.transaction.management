@@ -30,6 +30,7 @@ public static class DependencyInjection
 		services.AddScoped<ITagRepository, TagRepository>();
 
 		services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+		services.AddScoped<IUserContextService, UserContextService>();
 		services.AddScoped<IPasswordHasher, PasswordHasher>();
 		services.AddScoped<ITokenService, TokenService>();
 

@@ -13,7 +13,7 @@ public sealed class DeactivateAccountCommandHandler(IAccountRepository accountRe
 			request.AccountId, request.UserId, cancellationToken)
 			?? throw new NotFoundException(nameof(Account), request.AccountId);
 
-		account.Deactivate(request.UserId.ToString());
+		account.Deactivate();
 		await unitOfWork.SaveChangesAsync(cancellationToken);
 	}
 }

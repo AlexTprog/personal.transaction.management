@@ -18,14 +18,14 @@ public sealed class TransactionUpdatedEventHandler(IAccountRepository accountRep
 
 		// Step 1: reverse the previous amount
 		if (@event.TransactionType is TransactionTypeEnum.Income or TransactionTypeEnum.TransferIn)
-			account.Debit(@event.PreviousAmount, "system");
+			account.Debit(@event.PreviousAmount);
 		else
-			account.Credit(@event.PreviousAmount, "system");
+			account.Credit(@event.PreviousAmount);
 
 		// Step 2: apply the new amount (type cannot change on update)
 		if (@event.TransactionType is TransactionTypeEnum.Income or TransactionTypeEnum.TransferIn)
-			account.Credit(@event.NewAmount, "system");
+			account.Credit(@event.NewAmount);
 		else
-			account.Debit(@event.NewAmount, "system");
+			account.Debit(@event.NewAmount);
 	}
 }

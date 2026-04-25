@@ -19,8 +19,7 @@ public class Account : BaseAuditable
 	// Required by EF Core
 	private Account() { }
 
-	private Account(Guid userId, string name, AccountTypeEnum accountType, Money money, string createdBy)
-		: base(createdBy)
+	private Account(Guid userId, string name, AccountTypeEnum accountType, Money money)
 	{
 		Id = Guid.NewGuid();
 		UserId = userId;
@@ -33,24 +32,23 @@ public class Account : BaseAuditable
 
 	public static Account Create(
 		Guid userId, string name, AccountTypeEnum accountType,
-		Money money, string createdBy)
+		Money money)
 	{
 		if (string.IsNullOrWhiteSpace(name))
 			throw new DomainValidationException("Name", "Account name cannot be empty.");
 
-		return new Account(userId, name.Trim(), accountType, money, createdBy);
+		return new Account(userId, name.Trim(), accountType, money);
 	}
 
-	public void Credit(Money amount, string modifiedBy)
+	public void Credit(Money amount)
 	{
 		var previousBalance = Balance;
 		Balance += amount.Amount;
 
 		RaiseDomainEvent(new AccountBalanceUpdatedEvent(Id, UserId, previousBalance, Balance));
-		UpdateAuditInfo(modifiedBy);
 	}
 
-	public void Debit(Money amount, string modifiedBy)
+	public void Debit(Money amount)
 	{
 		if (AccountType == AccountTypeEnum.Cash && Balance < amount.Amount)
 			throw new InsufficientFundsException(Balance, amount.Amount, Currency.Code);
@@ -59,21 +57,18 @@ public class Account : BaseAuditable
 		Balance -= amount.Amount;
 
 		RaiseDomainEvent(new AccountBalanceUpdatedEvent(Id, UserId, previousBalance, Balance));
-		UpdateAuditInfo(modifiedBy);
 	}
 
-	public void Rename(string name, string modifiedBy)
+	public void Rename(string name)
 	{
 		if (string.IsNullOrWhiteSpace(name))
 			throw new DomainValidationException("Name", "Account name cannot be empty.");
 
 		Name = name.Trim();
-		UpdateAuditInfo(modifiedBy);
 	}
 
-	public void Deactivate(string modifiedBy)
+	public void Deactivate()
 	{
 		IsActive = false;
-		UpdateAuditInfo(modifiedBy);
 	}
 }

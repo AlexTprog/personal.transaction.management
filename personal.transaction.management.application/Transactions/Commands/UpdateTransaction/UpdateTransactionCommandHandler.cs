@@ -27,8 +27,7 @@ public sealed class UpdateTransactionCommandHandler(
 			newAmount,
 			request.Description,
 			request.Date,
-			request.AttachmentUrl,
-			request.UserId.ToString());
+			request.AttachmentUrl);
 
 		await unitOfWork.SaveChangesAsync(cancellationToken);
 	}

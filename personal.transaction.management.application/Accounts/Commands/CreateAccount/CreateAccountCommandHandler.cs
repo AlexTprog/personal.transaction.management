@@ -14,8 +14,7 @@ public sealed class CreateAccountCommandHandler(IAccountRepository accountReposi
 			request.UserId,
 			request.Name,
 			request.AccountType,
-			money,
-			request.UserId.ToString());
+			money);
 
 		await accountRepository.AddAsync(account, cancellationToken);
 		await unitOfWork.SaveChangesAsync(cancellationToken);

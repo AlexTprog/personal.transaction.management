@@ -19,8 +19,8 @@ public sealed class TransactionCreatedEventHandler(IAccountRepository accountRep
 		// Income / TransferIn: money enters the account
 		// Expense / TransferOut: money leaves the account
 		if (@event.TransactionType is TransactionTypeEnum.Income or TransactionTypeEnum.TransferIn)
-			account.Credit(@event.Amount, "system");
+			account.Credit(@event.Amount);
 		else
-			account.Debit(@event.Amount, "system");
+			account.Debit(@event.Amount);
 	}
 }

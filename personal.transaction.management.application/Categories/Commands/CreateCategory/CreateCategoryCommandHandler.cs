@@ -22,8 +22,7 @@ public sealed class CreateCategoryCommandHandler : IRequestHandler<CreateCategor
 			request.Name,
 			request.Icon,
 			request.Color,
-			request.CategoryType,
-			request.UserId.ToString());
+			request.CategoryType);
 
 		await _categoryRepository.AddAsync(category, cancellationToken);
 		await _unitOfWork.SaveChangesAsync(cancellationToken);

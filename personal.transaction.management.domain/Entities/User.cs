@@ -15,11 +15,9 @@ public class User : BaseAuditable
 	private readonly List<Account> _accounts = [];
 	public IReadOnlyList<Account> Accounts => _accounts.AsReadOnly();
 
-	// Required by EF Core
 	private User() { }
 
-	private User(Email email, string fullName, string passwordHash, string createdBy)
-		: base(createdBy)
+	private User(Email email, string fullName, string passwordHash)
 	{
 		Id = Guid.NewGuid();
 		Email = email;
@@ -28,7 +26,7 @@ public class User : BaseAuditable
 		IsActive = true;
 	}
 
-	public static User Create(string email, string fullName, string passwordHash, string createdBy)
+	public static User Create(string email, string fullName, string passwordHash)
 	{
 		if (string.IsNullOrWhiteSpace(fullName))
 			throw new DomainValidationException("FullName", "Full name cannot be empty.");
@@ -36,30 +34,27 @@ public class User : BaseAuditable
 		if (string.IsNullOrWhiteSpace(passwordHash))
 			throw new DomainValidationException("PasswordHash", "Password hash cannot be empty.");
 
-		return new User(Email.From(email), fullName.Trim(), passwordHash, createdBy);
+		return new User(Email.From(email), fullName.Trim(), passwordHash);
 	}
 
-	public void UpdateProfile(string fullName, string modifiedBy)
+	public void UpdateProfile(string fullName)
 	{
 		if (string.IsNullOrWhiteSpace(fullName))
 			throw new DomainValidationException("FullName", "Full name cannot be empty.");
 
 		FullName = fullName.Trim();
-		UpdateAuditInfo(modifiedBy);
 	}
 
-	public void ChangePassword(string newPasswordHash, string modifiedBy)
+	public void ChangePassword(string newPasswordHash)
 	{
 		if (string.IsNullOrWhiteSpace(newPasswordHash))
 			throw new DomainValidationException("PasswordHash", "Password hash cannot be empty.");
 
 		PasswordHash = newPasswordHash;
-		UpdateAuditInfo(modifiedBy);
 	}
 
-	public void Deactivate(string modifiedBy)
+	public void Deactivate()
 	{
 		IsActive = false;
-		UpdateAuditInfo(modifiedBy);
 	}
 }

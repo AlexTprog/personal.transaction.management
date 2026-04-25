@@ -34,3 +34,12 @@ docker compose up --build
 # API → http://localhost:8080
 # Scalar UI → http://localhost:8080/scalar/v1
 ```
+
+## Pending Reports
+
+5. ¿Qué reportes quieres exponer?
+
+Resumen por período (ingresos vs gastos del mes)
+Gastos por categoría en un rango de fechas
+Balance actual
+Evolución mensual (últimos N meses)

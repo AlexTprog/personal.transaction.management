@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace personal.transaction.management.api.Controllers;
@@ -19,7 +20,7 @@ public abstract class BaseController : ControllerBase
 		get
 		{
 			var value = User.FindFirstValue(ClaimTypes.NameIdentifier)
-				?? User.FindFirstValue("sub");
+				?? User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
 			return Guid.TryParse(value, out var id)
 				? id

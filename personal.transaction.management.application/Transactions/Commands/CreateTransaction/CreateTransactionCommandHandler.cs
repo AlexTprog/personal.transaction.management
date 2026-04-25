@@ -34,8 +34,7 @@ public sealed class CreateTransactionCommandHandler(
 			request.Date,
 			transferId: null,
 			request.ExchangeRate,
-			request.AttachmentUrl,
-			request.UserId.ToString());
+			request.AttachmentUrl);
 
 		if (request.TagIds is { Count: > 0 })
 		{

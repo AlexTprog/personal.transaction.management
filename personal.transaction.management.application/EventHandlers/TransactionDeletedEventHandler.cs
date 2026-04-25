@@ -18,8 +18,8 @@ public sealed class TransactionDeletedEventHandler(IAccountRepository accountRep
 
 		// Reverse the effect of the deleted transaction
 		if (@event.TransactionType is TransactionTypeEnum.Income or TransactionTypeEnum.TransferIn)
-			account.Debit(@event.Amount, "system");
+			account.Debit(@event.Amount);
 		else
-			account.Credit(@event.Amount, "system");
+			account.Credit(@event.Amount);
 	}
 }

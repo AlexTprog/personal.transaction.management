@@ -23,7 +23,6 @@ public class Transaction : BaseAuditable
 	private readonly List<TransactionTag> _tags = [];
 	public IReadOnlyList<TransactionTag> Tags => _tags.AsReadOnly();
 
-	// Required by EF Core
 	private Transaction() { }
 
 	private Transaction(
@@ -31,8 +30,7 @@ public class Transaction : BaseAuditable
 		Money amount, TransactionTypeEnum transactionType,
 		string? description, DateOnly date,
 		Guid? transferId, decimal? exchangeRate,
-		string? attachmentUrl, string createdBy)
-		: base(createdBy)
+		string? attachmentUrl)
 	{
 		Id = Guid.NewGuid();
 		AccountId = accountId;
@@ -52,7 +50,7 @@ public class Transaction : BaseAuditable
 		Money amount, TransactionTypeEnum transactionType,
 		string? description, DateOnly date,
 		Guid? transferId, decimal? exchangeRate,
-		string? attachmentUrl, string createdBy)
+		string? attachmentUrl)
 	{
 		if (date > DateOnly.FromDateTime(DateTime.UtcNow))
 			throw new FutureDateTransactionException();
@@ -67,7 +65,7 @@ public class Transaction : BaseAuditable
 
 		var transaction = new Transaction(
 			accountId, userId, categoryId, amount, transactionType,
-			description, date, transferId, exchangeRate, attachmentUrl, createdBy);
+			description, date, transferId, exchangeRate, attachmentUrl);
 
 		transaction.RaiseDomainEvent(new TransactionCreatedEvent(
 			transaction.Id, accountId, userId, amount, transactionType));
@@ -77,7 +75,7 @@ public class Transaction : BaseAuditable
 
 	public void Update(
 		Guid categoryId, Money amount, string? description,
-		DateOnly date, string? attachmentUrl, string modifiedBy)
+		DateOnly date, string? attachmentUrl)
 	{
 		if (TransactionType is TransactionTypeEnum.TransferIn or TransactionTypeEnum.TransferOut)
 			throw new TransferPartialModificationException();
@@ -93,7 +91,6 @@ public class Transaction : BaseAuditable
 		AttachmentUrl = attachmentUrl;
 
 		RaiseDomainEvent(new TransactionUpdatedEvent(Id, AccountId, previousAmount, Amount, TransactionType));
-		UpdateAuditInfo(modifiedBy);
 	}
 
 	public void AddTag(Tag tag)

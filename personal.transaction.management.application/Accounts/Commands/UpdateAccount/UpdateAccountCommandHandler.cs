@@ -13,7 +13,7 @@ public sealed class UpdateAccountCommandHandler(IAccountRepository accountReposi
 			request.AccountId, request.UserId, cancellationToken)
 			?? throw new NotFoundException(nameof(Account), request.AccountId);
 
-		account.Rename(request.Name, request.UserId.ToString());
+		account.Rename(request.Name);
 		await unitOfWork.SaveChangesAsync(cancellationToken);
 	}
 }

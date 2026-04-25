@@ -15,7 +15,7 @@ public sealed class DeactivateCategoryCommandHandler(ICategoryRepository categor
 		if (await categoryRepository.HasTransactionsAsync(request.CategoryId, cancellationToken))
 			throw new ConflictException("Cannot deactivate a category that has associated transactions.");
 
-		category.Deactivate(request.UserId.ToString());
+		category.Deactivate();
 
 		await unitOfWork.SaveChangesAsync(cancellationToken);
 	}

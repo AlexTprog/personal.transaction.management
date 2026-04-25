@@ -7,7 +7,7 @@ using System.Text;
 
 namespace personal.transaction.management.infrastructure.Auth;
 
-public sealed class TokenService(IOptions<JwtSettings> settings) : ITokenService
+public sealed class TokenService(IOptions<JwtSettings> settings, UserContextService userContextService) : ITokenService
 {
 	private readonly JwtSettings settings = settings.Value;
 

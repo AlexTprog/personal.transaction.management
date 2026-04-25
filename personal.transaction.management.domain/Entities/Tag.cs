@@ -5,11 +5,10 @@ namespace personal.transaction.management.domain.entities;
 public class Tag
 {
 	public Guid Id { get; private set; }
-	public Guid? UserId { get; private set; }   // null = system tag
+	public Guid? UserId { get; private set; }
 	public string Name { get; private set; } = string.Empty;
 	public bool IsSystem { get; private set; }
 
-	// Required by EF Core
 	private Tag() { }
 
 	private Tag(Guid? userId, string name, bool isSystem)

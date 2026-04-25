@@ -20,7 +20,7 @@ public sealed class RegisterUserCommandHandler(
 			throw new ConflictException($"A user with email '{request.Email}' already exists.");
 
 		var passwordHash = passwordHasher.Hash(request.Password);
-		var user = User.Create(request.Email, request.FullName, passwordHash, request.Email);
+		var user = User.Create(request.Email, request.FullName, passwordHash);
 
 		await userRepository.AddAsync(user, cancellationToken);
 		await unitOfWork.SaveChangesAsync(cancellationToken);

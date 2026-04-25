@@ -13,23 +13,11 @@ public abstract class BaseAuditable
 
 	public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-	// Required by EF Core — do not use in application code
 	protected BaseAuditable() { }
-
-	protected BaseAuditable(string createdBy)
-	{
-		CreatedBy = createdBy;
-		CreatedAt = DateTime.UtcNow;
-	}
 
 	protected void RaiseDomainEvent(IDomainEvent domainEvent) =>
 		_domainEvents.Add(domainEvent);
 
 	public void ClearDomainEvents() => _domainEvents.Clear();
 
-	protected void UpdateAuditInfo(string modifiedBy)
-	{
-		ModifiedBy = modifiedBy;
-		ModifiedAt = DateTime.UtcNow;
-	}
 }

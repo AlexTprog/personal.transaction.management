@@ -13,8 +13,7 @@ public sealed class UpdateCategoryCommandHandler(ICategoryRepository categoryRep
 			?? throw new NotFoundException(nameof(Category), request.CategoryId);
 
 		// Domain enforces system category guard
-		category.Update(request.Name, request.Icon, request.Color, request.CategoryType,
-			request.UserId.ToString());
+		category.Update(request.Name, request.Icon, request.Color, request.CategoryType);
 
 		await unitOfWork.SaveChangesAsync(cancellationToken);
 	}

@@ -46,13 +46,13 @@ public sealed class CreateTransferCommandHandler(
 			sourceAccount.Id, request.UserId, category.Id,
 			sourceAmount, TransactionTypeEnum.TransferOut,
 			request.Description, request.Date,
-			transferId, request.ExchangeRate, null, createdBy);
+			transferId, request.ExchangeRate, null);
 
 		var transferIn = Transaction.Create(
 			destinationAccount.Id, request.UserId, category.Id,
 			destinationAmount, TransactionTypeEnum.TransferIn,
 			request.Description, request.Date,
-			transferId, request.ExchangeRate, null, createdBy);
+			transferId, request.ExchangeRate, null);
 
 		await transactionRepository.AddRangeAsync([transferOut, transferIn], cancellationToken);
 		await unitOfWork.SaveChangesAsync(cancellationToken);
