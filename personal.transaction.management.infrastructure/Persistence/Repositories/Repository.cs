@@ -22,7 +22,4 @@ internal abstract class Repository<T>(ApplicationDbContext context) : IRepositor
 
 	public void Remove(T entity)
 		=> DbSet.Remove(entity);
-
-	public IQueryable<T> Query()
-		=> DbSet.AsQueryable();
 }

@@ -16,7 +16,6 @@ public class Account : BaseAuditable
 	public decimal Balance { get; private set; } = 0m;
 	public bool IsActive { get; private set; }
 
-	// Required by EF Core
 	private Account() { }
 
 	private Account(Guid userId, string name, AccountTypeEnum accountType, Money money)
@@ -26,7 +25,7 @@ public class Account : BaseAuditable
 		Name = name;
 		AccountType = accountType;
 		Currency = money.Currency;
-		Balance = money.Amount;
+		Balance = money.Value;
 		IsActive = true;
 	}
 
@@ -43,18 +42,18 @@ public class Account : BaseAuditable
 	public void Credit(Money amount)
 	{
 		var previousBalance = Balance;
-		Balance += amount.Amount;
+		Balance += amount.Value;
 
 		RaiseDomainEvent(new AccountBalanceUpdatedEvent(Id, UserId, previousBalance, Balance));
 	}
 
 	public void Debit(Money amount)
 	{
-		if (AccountType == AccountTypeEnum.Cash && Balance < amount.Amount)
-			throw new InsufficientFundsException(Balance, amount.Amount, Currency.Code);
+		if (AccountType == AccountTypeEnum.Cash && Balance < amount.Value)
+			throw new InsufficientFundsException(Balance, amount.Value, Currency.Code);
 
 		var previousBalance = Balance;
-		Balance -= amount.Amount;
+		Balance -= amount.Value;
 
 		RaiseDomainEvent(new AccountBalanceUpdatedEvent(Id, UserId, previousBalance, Balance));
 	}

@@ -17,4 +17,5 @@ internal sealed class AccountRepository(ApplicationDbContext context) : Reposito
 		Guid id, Guid userId, CancellationToken cancellationToken = default)
 		=> await DbSet
 			.FirstOrDefaultAsync(a => a.Id == id && a.UserId == userId, cancellationToken);
+
 }

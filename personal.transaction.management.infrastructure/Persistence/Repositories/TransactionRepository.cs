@@ -44,4 +44,5 @@ internal sealed class TransactionRepository(ApplicationDbContext context) : Repo
 
 		return (items, totalCount);
 	}
+
 }

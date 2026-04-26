@@ -4,30 +4,30 @@ namespace personal.transaction.management.domain.valueobjects;
 
 public sealed record Money
 {
-	public decimal Amount { get; }
+	public decimal Value { get; }
 	public Currency Currency { get; }
 
-	private Money(decimal amount, Currency currency)
+	private Money(decimal value, Currency currency)
 	{
-		Amount = amount;
+		Value = value;
 		Currency = currency;
 	}
 
-	public static Money Of(decimal amount, string currencyCode)
+	public static Money Of(decimal value, string currencyCode)
 	{
-		if (amount <= 0)
+		if (value <= 0)
 			throw new DomainValidationException("Amount", "Amount must be greater than zero.");
 
-		return new Money(amount, Currency.From(currencyCode));
+		return new Money(value, Currency.From(currencyCode));
 	}
 
-	public static Money Of(decimal amount, Currency currency)
+	public static Money Of(decimal value, Currency currency)
 	{
-		if (amount <= 0)
+		if (value <= 0)
 			throw new DomainValidationException("Amount", "Amount must be greater than zero.");
 
-		return new Money(amount, currency);
+		return new Money(value, currency);
 	}
 
-	public override string ToString() => $"{Amount} {Currency.Code}";
+	public override string ToString() => $"{Value} {Currency.Code}";
 }

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using personal.transaction.management.application.Common.Interfaces;
+using personal.transaction.management.application.Reports;
 using personal.transaction.management.domain.repositories;
 using personal.transaction.management.infrastructure.Auth;
 using personal.transaction.management.infrastructure.Persistence;
@@ -28,6 +29,7 @@ public static class DependencyInjection
 		services.AddScoped<ITransactionRepository, TransactionRepository>();
 		services.AddScoped<ICategoryRepository, CategoryRepository>();
 		services.AddScoped<ITagRepository, TagRepository>();
+		services.AddScoped<IReportRepository, ReportRepository>();
 
 		services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
 		services.AddScoped<IPasswordHasher, PasswordHasher>();

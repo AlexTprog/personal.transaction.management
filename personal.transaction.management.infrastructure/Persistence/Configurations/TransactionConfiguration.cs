@@ -20,7 +20,7 @@ internal sealed class TransactionConfiguration : IEntityTypeConfiguration<Transa
 
 		builder.ComplexProperty(t => t.Amount, money =>
 		{
-			money.Property(m => m.Amount)
+			money.Property(m => m.Value)
 				.HasColumnName("amount")
 				.HasColumnType("decimal(18,4)")
 				.IsRequired();

@@ -26,7 +26,7 @@ public record TransactionDto
 		AccountId = t.AccountId,
 		UserId = t.UserId,
 		CategoryId = t.CategoryId,
-		Amount = t.Amount.Amount,
+		Amount = t.Amount.Value,
 		Currency = t.Amount.Currency.Code,
 		TransactionType = t.TransactionType,
 		Description = t.Description,
