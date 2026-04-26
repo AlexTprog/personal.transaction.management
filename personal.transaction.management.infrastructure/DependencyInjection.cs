@@ -30,6 +30,7 @@ public static class DependencyInjection
 		services.AddScoped<ICategoryRepository, CategoryRepository>();
 		services.AddScoped<ITagRepository, TagRepository>();
 		services.AddScoped<IReportRepository, ReportRepository>();
+		services.AddScoped<DatabaseSeeder>();
 
 		services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
 		services.AddScoped<IPasswordHasher, PasswordHasher>();

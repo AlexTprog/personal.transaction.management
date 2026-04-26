@@ -4,6 +4,7 @@ using personal.transaction.management.api.Extensions;
 using personal.transaction.management.api.Middleware;
 using personal.transaction.management.application;
 using personal.transaction.management.infrastructure;
+using personal.transaction.management.infrastructure.Persistence;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -41,6 +42,12 @@ builder.Services.AddOpenApi(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+	var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+	await seeder.SeedAsync();
+}
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
