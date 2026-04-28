@@ -5,6 +5,6 @@ namespace personal.transaction.management.application.Reports.Queries.GetCurrent
 
 public class GetCurrentBalanceQueryHandler(IReportRepository reportRepository) : IRequestHandler<GetCurrentBalanceQuery, CurrentBalanceDto>
 {
-    public Task<CurrentBalanceDto> Handle(GetCurrentBalanceQuery request, CancellationToken cancellationToken)
-        => reportRepository.GetCurrentBalanceAsync(request.UserId, cancellationToken);
+	public Task<CurrentBalanceDto> Handle(GetCurrentBalanceQuery request, CancellationToken cancellationToken)
+		=> reportRepository.GetCurrentBalanceAsync(request.UserId, cancellationToken);
 }
