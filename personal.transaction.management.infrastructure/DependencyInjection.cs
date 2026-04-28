@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using personal.transaction.management.application.Common.Interfaces;
 using personal.transaction.management.application.Reports;
+using personal.transaction.management.application.Spending;
 using personal.transaction.management.domain.repositories;
 using personal.transaction.management.infrastructure.Auth;
 using personal.transaction.management.infrastructure.Persistence;
@@ -30,6 +31,7 @@ public static class DependencyInjection
 		services.AddScoped<ICategoryRepository, CategoryRepository>();
 		services.AddScoped<ITagRepository, TagRepository>();
 		services.AddScoped<IReportRepository, ReportRepository>();
+		services.AddScoped<ISpendingRepository, SpendingRepository>();
 		services.AddScoped<DatabaseSeeder>();
 
 		services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
