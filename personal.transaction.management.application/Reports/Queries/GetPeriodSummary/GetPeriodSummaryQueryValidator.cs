@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace personal.transaction.management.application.Reports.Queries.GetPeriodSummary;
 
-public class GetPeriodSummaryValidator : AbstractValidator<GetPeriodSummaryQuery>
+public class GetPeriodSummaryQueryValidator : AbstractValidator<GetPeriodSummaryQuery>
 {
-	public GetPeriodSummaryValidator()
+	public GetPeriodSummaryQueryValidator()
 	{
 		RuleFor(x => x.UserId).NotEmpty();
 

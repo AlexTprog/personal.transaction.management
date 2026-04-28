@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace personal.transaction.management.application.Reports.Queries.GetExpensesByCategory;
 
-public class GetExpensesByCategoryValidator : AbstractValidator<GetExpensesByCategoryQuery>
+public class GetExpensesByCategoryQueryValidator : AbstractValidator<GetExpensesByCategoryQuery>
 {
-	public GetExpensesByCategoryValidator()
+	public GetExpensesByCategoryQueryValidator()
 	{
 		RuleFor(x => x.UserId).NotEmpty();
 

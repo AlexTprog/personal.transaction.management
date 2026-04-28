@@ -3,7 +3,7 @@ using personal.transaction.management.application.Reports.Dtos;
 
 namespace personal.transaction.management.application.Reports.Queries.GetMonthlyEvolution;
 
-public class GetMonthlyEvolutionHandler(IReportRepository reportRepository) : IRequestHandler<GetMonthlyEvolutionQuery, ICollection<MonthlyEvolutionDto>>
+public class GetMonthlyEvolutionQueryHandler(IReportRepository reportRepository) : IRequestHandler<GetMonthlyEvolutionQuery, ICollection<MonthlyEvolutionDto>>
 {
 	public Task<ICollection<MonthlyEvolutionDto>> Handle(GetMonthlyEvolutionQuery request, CancellationToken cancellationToken)
 	{

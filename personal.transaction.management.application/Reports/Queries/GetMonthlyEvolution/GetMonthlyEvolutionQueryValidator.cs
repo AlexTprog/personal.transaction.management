@@ -2,9 +2,9 @@
 
 namespace personal.transaction.management.application.Reports.Queries.GetMonthlyEvolution;
 
-public class GetMonthlyValidator : AbstractValidator<GetMonthlyEvolutionQuery>
+public class GetMonthlyEvolutionQueryValidator : AbstractValidator<GetMonthlyEvolutionQuery>
 {
-	public GetMonthlyValidator()
+	public GetMonthlyEvolutionQueryValidator()
 	{
 		RuleFor(x => x.UserId)
 			.NotEmpty().WithMessage("UserId is required.");
