@@ -3,9 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using personal.transaction.management.application.Common.Interfaces;
 using personal.transaction.management.application.Reports;
-using personal.transaction.management.application.Spending;
+using personal.transaction.management.application.Spendings;
 using personal.transaction.management.domain.repositories;
 using personal.transaction.management.infrastructure.Auth;
+using personal.transaction.management.infrastructure.Configuration;
 using personal.transaction.management.infrastructure.Persistence;
 using personal.transaction.management.infrastructure.Persistence.Repositories;
 
@@ -34,10 +35,12 @@ public static class DependencyInjection
 		services.AddScoped<ISpendingRepository, SpendingRepository>();
 		services.AddScoped<DatabaseSeeder>();
 
+		services.Configure<ApplicationSettings>(configuration.GetSection(ApplicationSettings.SectionName));
 		services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
 		services.AddScoped<IPasswordHasher, PasswordHasher>();
 		services.AddScoped<ITokenService, TokenService>();
 		services.AddScoped<IUserContextService, UserContextService>();
+		services.AddScoped<IConfigurationService, ConfigurationService>();
 
 		return services;
 	}

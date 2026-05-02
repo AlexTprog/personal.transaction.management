@@ -3,4 +3,4 @@ using personal.transaction.management.application.Spendings.Dtos;
 
 namespace personal.transaction.management.application.Spendings.Queries.GetSpendingAnomalies;
 
-public record GetSpendingAnomaliesQuery(DateOnly From, Guid UserId) : IRequest<ICollection<SpendingAnomalyDto>>;
+public record GetSpendingAnomaliesQuery(DateOnly From, int PreviousMonths, Guid UserId) : IRequest<ICollection<SpendingAnomalyDto>>;

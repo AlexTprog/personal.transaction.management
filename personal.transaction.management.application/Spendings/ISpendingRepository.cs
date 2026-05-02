@@ -5,5 +5,5 @@ namespace personal.transaction.management.application.Spendings;
 public interface ISpendingRepository
 {
 	Task<ICollection<SpendingCategoryDto>> GetSpendingByCategoriesAsync(Guid userId, DateOnly from, CancellationToken cancellationToken = default);
-	Task<ICollection<SpendingCategoryAverageDto>> GetSpendingAverageByCategoriesAsync(Guid userId, DateOnly from, DateOnly to, CancellationToken cancellationToken = default);
+	Task<ICollection<SpendingAverageCategoryDto>> GetSpendingAverageByCategoriesAsync(Guid userId, DateOnly from, DateOnly to, CancellationToken cancellationToken = default);
 }
