@@ -28,8 +28,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 	public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
 	{
 		await SetAuditedFields();
+		var result = await base.SaveChangesAsync(cancellationToken);
 		await DispatchDomainEventsAsync(cancellationToken);
-		return await base.SaveChangesAsync(cancellationToken);
+		return result;
 	}
 
 	private async Task SetAuditedFields()

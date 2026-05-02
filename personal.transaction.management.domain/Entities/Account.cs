@@ -15,7 +15,7 @@ public class Account : BaseAuditable
 	public Currency Currency { get; private set; } = null!;
 	public decimal Balance { get; private set; } = 0m;
 	public bool IsActive { get; private set; }
-
+	public uint Xmin { get; private set; }
 	private Account() { }
 
 	private Account(Guid userId, string name, AccountTypeEnum accountType, Money money)

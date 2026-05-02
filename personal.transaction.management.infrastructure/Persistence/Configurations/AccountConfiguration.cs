@@ -53,5 +53,6 @@ internal sealed class AccountConfiguration : IEntityTypeConfiguration<Account>
 			.OnDelete(DeleteBehavior.Restrict);
 
 		builder.HasIndex(a => a.UserId).HasDatabaseName("ix_accounts_user_id");
+		builder.Property(e => e.Xmin).IsRowVersion();
 	}
 }

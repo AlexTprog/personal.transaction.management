@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ using personal.transaction.management.domain.repositories;
 using personal.transaction.management.infrastructure.Auth;
 using personal.transaction.management.infrastructure.Configuration;
 using personal.transaction.management.infrastructure.Persistence;
+using personal.transaction.management.infrastructure.Persistence.Behaviors;
 using personal.transaction.management.infrastructure.Persistence.Repositories;
 
 namespace personal.transaction.management.infrastructure;
@@ -34,6 +36,8 @@ public static class DependencyInjection
 		services.AddScoped<IReportRepository, ReportRepository>();
 		services.AddScoped<ISpendingRepository, SpendingRepository>();
 		services.AddScoped<DatabaseSeeder>();
+
+		services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ConcurrencyRetryBehavior<,>));
 
 		services.Configure<ApplicationSettings>(configuration.GetSection(ApplicationSettings.SectionName));
 		services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
