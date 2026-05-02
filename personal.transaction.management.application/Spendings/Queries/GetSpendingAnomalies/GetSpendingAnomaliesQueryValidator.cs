@@ -8,8 +8,10 @@ public class GetSpendingAnomaliesQueryValidator : AbstractValidator<GetSpendingA
 	{
 		RuleFor(x => x.From)
 			.NotEmpty()
-			.When(x => x.From > DateOnly.FromDateTime(DateTime.Now))
+			.WithMessage("The 'From' date is required.")
+			.Must(from => from <= DateOnly.FromDateTime(DateTime.Now))
 			.WithMessage("The 'From' date cannot be in the future.");
+
 		RuleFor(x => x.UserId).NotEmpty();
 	}
 }

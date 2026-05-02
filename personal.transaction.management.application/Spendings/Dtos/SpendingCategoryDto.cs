@@ -9,12 +9,13 @@ public record SpendingCategoryDto
 	public DateOnly Date { get; init; }
 }
 
-public record SpedingCategoryAverageDto
+public record SpendingCategoryAverageDto
 {
 	public Guid CategoryId { get; init; }
 	public string CategoryName { get; init; } = null!;
 	public decimal Amount { get; init; }
 	public string Currency { get; init; } = null!;
+
 }
 
 public record SpendingAnomalyDto
@@ -25,4 +26,5 @@ public record SpendingAnomalyDto
 	public string Currency { get; init; } = null!;
 	public DateOnly Date { get; init; }
 	public decimal AverageAmount { get; init; }
+	public decimal DeviationFactor { get; init; }
 }

@@ -5,13 +5,13 @@ using personal.transaction.management.application.Spendings.Queries.GetSpendingA
 namespace personal.transaction.management.api.Controllers;
 
 [Route("api/[controller]")]
-public class SpendingController : BaseController
+public class SpendingsController : BaseController
 {
 	[HttpGet]
 	[ProducesResponseType(typeof(IReadOnlyList<SpendingAnomalyDto>), StatusCodes.Status200OK)]
 	public async Task<IActionResult> GetAnomalies([FromQuery] DateOnly from, CancellationToken cancellationToken)
 	{
-		var result = await Sender.Send(new GetSpendingAnomaliesQuery { From = from, UserId = CurrentUserId }, cancellationToken);
+		var result = await Sender.Send(new GetSpendingAnomaliesQuery(from, CurrentUserId), cancellationToken);
 		return Ok(result);
 	}
 }
