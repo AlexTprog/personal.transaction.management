@@ -52,8 +52,6 @@ public class Transaction : BaseAuditable
 		Guid? transferId, decimal? exchangeRate,
 		string? attachmentUrl)
 	{
-		if (date > DateOnly.FromDateTime(DateTime.UtcNow))
-			throw new FutureDateTransactionException();
 
 		var isTransfer = transactionType is TransactionTypeEnum.TransferIn or TransactionTypeEnum.TransferOut;
 
@@ -79,9 +77,6 @@ public class Transaction : BaseAuditable
 	{
 		if (TransactionType is TransactionTypeEnum.TransferIn or TransactionTypeEnum.TransferOut)
 			throw new TransferPartialModificationException();
-
-		if (date > DateOnly.FromDateTime(DateTime.UtcNow))
-			throw new FutureDateTransactionException();
 
 		var previousAmount = Amount;
 		CategoryId = categoryId;

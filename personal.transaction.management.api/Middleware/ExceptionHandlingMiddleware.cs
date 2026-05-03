@@ -9,6 +9,8 @@ namespace personal.transaction.management.api.Middleware;
 
 public sealed class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
 {
+	private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+
 	public async Task InvokeAsync(HttpContext context)
 	{
 		try
@@ -40,10 +42,7 @@ public sealed class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Ex
 		context.Response.ContentType = "application/problem+json";
 		context.Response.StatusCode = statusCode;
 
-		var json = JsonSerializer.Serialize(problemDetails, new JsonSerializerOptions
-		{
-			PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-		});
+		var json = JsonSerializer.Serialize(problemDetails, JsonOptions);
 
 		return context.Response.WriteAsync(json);
 	}
@@ -92,7 +91,6 @@ public sealed class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Ex
 
 			// 422 – business rule violations
 			InsufficientFundsException or
-			FutureDateTransactionException or
 			TransferIdRequiredException or
 			TransferIdForbiddenException or
 			TransferPartialModificationException => (

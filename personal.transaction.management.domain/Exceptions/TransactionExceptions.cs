@@ -1,11 +1,5 @@
 namespace personal.transaction.management.domain.exceptions;
 
-public sealed class FutureDateTransactionException : DomainException
-{
-	public FutureDateTransactionException()
-		: base("Transaction date cannot be in the future.") { }
-}
-
 public sealed class TransferIdRequiredException : DomainException
 {
 	public TransferIdRequiredException()

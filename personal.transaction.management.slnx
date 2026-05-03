@@ -6,6 +6,6 @@
     <Project Path="personal.transaction.management.infrastructure/personal.transaction.management.infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="personal.transaction.management.application.tests/personal.transaction.management.application.tests.csproj" />
+    <Project Path="personal.transaction.management.integration.tests/personal.transaction.management.integration.tests.csproj" />
   </Folder>
 </Solution>
