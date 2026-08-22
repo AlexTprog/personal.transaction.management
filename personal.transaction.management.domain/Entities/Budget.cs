@@ -1,6 +1,6 @@
 using personal.transaction.management.domain.abstractions;
 using personal.transaction.management.domain.exceptions;
-namespace personal.transaction.management.domain.Entities;
+namespace personal.transaction.management.domain.entities;
 
 public class Budget : BaseAuditable
 {

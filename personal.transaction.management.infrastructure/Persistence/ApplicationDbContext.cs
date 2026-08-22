@@ -5,7 +5,6 @@ using personal.transaction.management.application.Common;
 using personal.transaction.management.application.Common.Interfaces;
 using personal.transaction.management.domain.abstractions;
 using personal.transaction.management.domain.entities;
-using personal.transaction.management.domain.Entities;
 using personal.transaction.management.domain.events;
 using personal.transaction.management.domain.repositories;
 

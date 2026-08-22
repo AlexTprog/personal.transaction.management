@@ -1,5 +1,4 @@
 using personal.transaction.management.domain.abstractions;
-using personal.transaction.management.domain.Entities;
 using personal.transaction.management.domain.exceptions;
 using personal.transaction.management.domain.valueobjects;
 

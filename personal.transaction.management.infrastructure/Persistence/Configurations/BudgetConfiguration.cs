@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using personal.transaction.management.domain.Entities;
+using personal.transaction.management.domain.entities;
+
+namespace personal.transaction.management.infrastructure.Persistence.Configurations;
 
 internal sealed class BudgetConfiguration : IEntityTypeConfiguration<Budget>
 {
