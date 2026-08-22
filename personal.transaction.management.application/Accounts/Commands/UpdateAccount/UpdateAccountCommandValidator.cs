@@ -4,10 +4,10 @@ namespace personal.transaction.management.application.Accounts.Commands.UpdateAc
 
 public sealed class UpdateAccountCommandValidator : AbstractValidator<UpdateAccountCommand>
 {
-	public UpdateAccountCommandValidator()
-	{
-		RuleFor(x => x.AccountId).NotEmpty();
-		RuleFor(x => x.UserId).NotEmpty();
-		RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
-	}
+    public UpdateAccountCommandValidator()
+    {
+        RuleFor(x => x.AccountId).NotEmpty();
+        RuleFor(x => x.UserId).NotEmpty();
+        RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
+    }
 }

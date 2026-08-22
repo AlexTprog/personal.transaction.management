@@ -8,12 +8,12 @@ namespace personal.transaction.management.application.Accounts.Queries.GetAccoun
 
 public sealed class GetAccountByIdQueryHandler(IAccountRepository accountRepository) : IRequestHandler<GetAccountByIdQuery, AccountDto>
 {
-	public async Task<AccountDto> Handle(GetAccountByIdQuery request, CancellationToken cancellationToken)
-	{
-		var account = await accountRepository.GetByIdAndUserIdAsync(
-			request.AccountId, request.UserId, cancellationToken)
-			?? throw new NotFoundException(nameof(Account), request.AccountId);
+    public async Task<AccountDto> Handle(GetAccountByIdQuery request, CancellationToken cancellationToken)
+    {
+        var account = await accountRepository.GetByIdAndUserIdAsync(
+            request.AccountId, request.UserId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Account), request.AccountId);
 
-		return AccountDto.FromEntity(account);
-	}
+        return AccountDto.FromEntity(account);
+    }
 }

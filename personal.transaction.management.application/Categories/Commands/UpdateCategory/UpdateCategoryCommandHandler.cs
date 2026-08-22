@@ -7,14 +7,14 @@ namespace personal.transaction.management.application.Categories.Commands.Update
 
 public sealed class UpdateCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork) : IRequestHandler<UpdateCategoryCommand>
 {
-	public async Task Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
-	{
-		var category = await categoryRepository.GetByIdAsync(request.CategoryId, cancellationToken)
-			?? throw new NotFoundException(nameof(Category), request.CategoryId);
+    public async Task Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
+    {
+        var category = await categoryRepository.GetByIdAsync(request.CategoryId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Category), request.CategoryId);
 
-		// Domain enforces system category guard
-		category.Update(request.Name, request.Icon, request.Color, request.CategoryType);
+        // Domain enforces system category guard
+        category.Update(request.Name, request.Icon, request.Color, request.CategoryType);
 
-		await unitOfWork.SaveChangesAsync(cancellationToken);
-	}
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+    }
 }

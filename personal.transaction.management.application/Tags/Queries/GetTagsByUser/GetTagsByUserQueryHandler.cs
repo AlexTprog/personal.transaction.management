@@ -6,9 +6,9 @@ namespace personal.transaction.management.application.Tags.Queries.GetTagsByUser
 
 public sealed class GetTagsByUserQueryHandler(ITagRepository tagRepository) : IRequestHandler<GetTagsByUserQuery, IReadOnlyList<TagDto>>
 {
-	public async Task<IReadOnlyList<TagDto>> Handle(GetTagsByUserQuery request, CancellationToken cancellationToken)
-	{
-		var tags = await tagRepository.GetByUserIdAsync(request.UserId, cancellationToken);
-		return tags.Select(TagDto.FromEntity).ToList();
-	}
+    public async Task<IReadOnlyList<TagDto>> Handle(GetTagsByUserQuery request, CancellationToken cancellationToken)
+    {
+        var tags = await tagRepository.GetByUserIdAsync(request.UserId, cancellationToken);
+        return tags.Select(TagDto.FromEntity).ToList();
+    }
 }

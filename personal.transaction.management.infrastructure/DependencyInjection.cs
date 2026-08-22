@@ -16,36 +16,36 @@ namespace personal.transaction.management.infrastructure;
 
 public static class DependencyInjection
 {
-	public static IServiceCollection AddInfrastructure(
-		this IServiceCollection services,
-		IConfiguration configuration)
-	{
-		var connectionString = configuration.GetConnectionString("DefaultConnection")
-			?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
 
-		services.AddDbContext<ApplicationDbContext>(options =>
-			options.UseNpgsql(connectionString));
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseNpgsql(connectionString));
 
-		services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
-		services.AddScoped<IUserRepository, UserRepository>();
-		services.AddScoped<IAccountRepository, AccountRepository>();
-		services.AddScoped<ITransactionRepository, TransactionRepository>();
-		services.AddScoped<ICategoryRepository, CategoryRepository>();
-		services.AddScoped<ITagRepository, TagRepository>();
-		services.AddScoped<IReportRepository, ReportRepository>();
-		services.AddScoped<ISpendingRepository, SpendingRepository>();
-		services.AddScoped<DatabaseSeeder>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<ITransactionRepository, TransactionRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ITagRepository, TagRepository>();
+        services.AddScoped<IReportRepository, ReportRepository>();
+        services.AddScoped<ISpendingRepository, SpendingRepository>();
+        services.AddScoped<DatabaseSeeder>();
 
-		services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ConcurrencyRetryBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ConcurrencyRetryBehavior<,>));
 
-		services.Configure<ApplicationSettings>(configuration.GetSection(ApplicationSettings.SectionName));
-		services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
-		services.AddScoped<IPasswordHasher, PasswordHasher>();
-		services.AddScoped<ITokenService, TokenService>();
-		services.AddScoped<IUserContextService, UserContextService>();
-		services.AddScoped<IConfigurationService, ConfigurationService>();
+        services.Configure<ApplicationSettings>(configuration.GetSection(ApplicationSettings.SectionName));
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUserContextService, UserContextService>();
+        services.AddScoped<IConfigurationService, ConfigurationService>();
 
-		return services;
-	}
+        return services;
+    }
 }

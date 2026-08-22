@@ -15,7 +15,10 @@ services:
       Jwt__Key: ${JWT_KEY}
       Jwt__Issuer: personal.transaction.management.api
       Jwt__Audience: personal.transaction.management.api
-      Jwt__ExpirationMinutes: "1440"
+      Jwt__ExpirationMinutes: ${JWT_EXPIRATION}
+      Application__Sepending__AnomalyThreshold: ${APPLICATION_SEPENDING_ANOMALYTHRESHOLD}
+      Application__Sepending__MaxMonths: ${APPLICATION_SEPENDING_MAXMONTHS}
+      CorsOrigins__0: ${CORS_ORIGINS_0}
     depends_on:
       postgres:
         condition: service_healthy

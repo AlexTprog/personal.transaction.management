@@ -8,12 +8,12 @@ namespace personal.transaction.management.application.Transactions.Queries.GetTr
 
 public sealed class GetTransactionByIdQueryHandler(ITransactionRepository transactionRepository) : IRequestHandler<GetTransactionByIdQuery, TransactionDto>
 {
-	public async Task<TransactionDto> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
-	{
-		var transaction = await transactionRepository.GetByIdAndUserIdAsync(
-			request.TransactionId, request.UserId, cancellationToken)
-			?? throw new NotFoundException(nameof(Transaction), request.TransactionId);
+    public async Task<TransactionDto> Handle(GetTransactionByIdQuery request, CancellationToken cancellationToken)
+    {
+        var transaction = await transactionRepository.GetByIdAndUserIdAsync(
+            request.TransactionId, request.UserId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Transaction), request.TransactionId);
 
-		return TransactionDto.FromEntity(transaction);
-	}
+        return TransactionDto.FromEntity(transaction);
+    }
 }

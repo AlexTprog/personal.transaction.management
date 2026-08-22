@@ -7,13 +7,13 @@ namespace personal.transaction.management.application.Accounts.Commands.UpdateAc
 
 public sealed class UpdateAccountCommandHandler(IAccountRepository accountRepository, IUnitOfWork unitOfWork) : IRequestHandler<UpdateAccountCommand>
 {
-	public async Task Handle(UpdateAccountCommand request, CancellationToken cancellationToken)
-	{
-		var account = await accountRepository.GetByIdAndUserIdAsync(
-			request.AccountId, request.UserId, cancellationToken)
-			?? throw new NotFoundException(nameof(Account), request.AccountId);
+    public async Task Handle(UpdateAccountCommand request, CancellationToken cancellationToken)
+    {
+        var account = await accountRepository.GetByIdAndUserIdAsync(
+            request.AccountId, request.UserId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Account), request.AccountId);
 
-		account.Rename(request.Name);
-		await unitOfWork.SaveChangesAsync(cancellationToken);
-	}
+        account.Rename(request.Name);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+    }
 }

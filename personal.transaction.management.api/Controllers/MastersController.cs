@@ -10,29 +10,29 @@ namespace personal.transaction.management.api.Controllers;
 [AllowAnonymous]
 public sealed class MastersController : ControllerBase
 {
-	[HttpGet("currencies")]
-	[ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status200OK)]
-	public IActionResult GetCurrencies() =>
-		Ok(Currency.Availables.OrderBy(c => c));
+    [HttpGet("currencies")]
+    [ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status200OK)]
+    public IActionResult GetCurrencies() =>
+        Ok(Currency.Availables.OrderBy(c => c));
 
-	[HttpGet("account-types")]
-	[ProducesResponseType(typeof(IEnumerable<MasterDto>), StatusCodes.Status200OK)]
-	public IActionResult GetAccountTypes() =>
-		Ok(ToLookups<AccountTypeEnum>());
+    [HttpGet("account-types")]
+    [ProducesResponseType(typeof(IEnumerable<MasterDto>), StatusCodes.Status200OK)]
+    public IActionResult GetAccountTypes() =>
+        Ok(ToLookups<AccountTypeEnum>());
 
-	[HttpGet("category-types")]
-	[ProducesResponseType(typeof(IEnumerable<MasterDto>), StatusCodes.Status200OK)]
-	public IActionResult GetCategoryTypes() =>
-		Ok(ToLookups<CategoryTypeEnum>());
+    [HttpGet("category-types")]
+    [ProducesResponseType(typeof(IEnumerable<MasterDto>), StatusCodes.Status200OK)]
+    public IActionResult GetCategoryTypes() =>
+        Ok(ToLookups<CategoryTypeEnum>());
 
-	[HttpGet("transaction-types")]
-	[ProducesResponseType(typeof(IEnumerable<MasterDto>), StatusCodes.Status200OK)]
-	public IActionResult GetTransactionTypes() =>
-		Ok(ToLookups<TransactionTypeEnum>());
+    [HttpGet("transaction-types")]
+    [ProducesResponseType(typeof(IEnumerable<MasterDto>), StatusCodes.Status200OK)]
+    public IActionResult GetTransactionTypes() =>
+        Ok(ToLookups<TransactionTypeEnum>());
 
-	private static IEnumerable<MasterDto> ToLookups<TEnum>() where TEnum : struct, Enum =>
-		Enum.GetValues<TEnum>()
-			.Select(e => new MasterDto(Convert.ToInt32(e), e.ToString()));
+    private static IEnumerable<MasterDto> ToLookups<TEnum>() where TEnum : struct, Enum =>
+        Enum.GetValues<TEnum>()
+            .Select(e => new MasterDto(Convert.ToInt32(e), e.ToString()));
 }
 
 public record MasterDto(int Value, string Name);

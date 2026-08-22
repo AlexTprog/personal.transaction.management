@@ -4,48 +4,48 @@ namespace personal.transaction.management.domain.entities;
 
 public class Tag
 {
-	public Guid Id { get; private set; }
-	public Guid? UserId { get; private set; }
-	public string Name { get; private set; } = string.Empty;
-	public bool IsSystem { get; private set; }
+    public Guid Id { get; private set; }
+    public Guid? UserId { get; private set; }
+    public string Name { get; private set; } = string.Empty;
+    public bool IsSystem { get; private set; }
 
-	private Tag() { }
+    private Tag() { }
 
-	private Tag(Guid? userId, string name, bool isSystem)
-	{
-		Id = Guid.NewGuid();
-		UserId = userId;
-		Name = name;
-		IsSystem = isSystem;
-	}
+    private Tag(Guid? userId, string name, bool isSystem)
+    {
+        Id = Guid.NewGuid();
+        UserId = userId;
+        Name = name;
+        IsSystem = isSystem;
+    }
 
-	public static Tag CreateUserTag(Guid userId, string name)
-	{
-		if (string.IsNullOrWhiteSpace(name))
-			throw new DomainValidationException("Name", "Tag name cannot be empty.");
+    public static Tag CreateUserTag(Guid userId, string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new DomainValidationException("Name", "Tag name cannot be empty.");
 
-		return new Tag(userId, name.Trim(), false);
-	}
+        return new Tag(userId, name.Trim(), false);
+    }
 
-	public static Tag CreateSystemTag(string name)
-	{
-		if (string.IsNullOrWhiteSpace(name))
-			throw new DomainValidationException("Name", "Tag name cannot be empty.");
+    public static Tag CreateSystemTag(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new DomainValidationException("Name", "Tag name cannot be empty.");
 
-		return new Tag(null, name.Trim(), true);
-	}
+        return new Tag(null, name.Trim(), true);
+    }
 
-	public void Rename(Guid requestingUserId, string name)
-	{
-		if (IsSystem)
-			throw new SystemTagModificationException();
+    public void Rename(Guid requestingUserId, string name)
+    {
+        if (IsSystem)
+            throw new SystemTagModificationException();
 
-		if (UserId != requestingUserId)
-			throw new UnauthorizedTagAccessException();
+        if (UserId != requestingUserId)
+            throw new UnauthorizedTagAccessException();
 
-		if (string.IsNullOrWhiteSpace(name))
-			throw new DomainValidationException("Name", "Tag name cannot be empty.");
+        if (string.IsNullOrWhiteSpace(name))
+            throw new DomainValidationException("Name", "Tag name cannot be empty.");
 
-		Name = name.Trim();
-	}
+        Name = name.Trim();
+    }
 }

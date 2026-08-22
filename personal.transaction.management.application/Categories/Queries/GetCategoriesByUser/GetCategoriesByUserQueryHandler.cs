@@ -6,10 +6,10 @@ namespace personal.transaction.management.application.Categories.Queries.GetCate
 
 public sealed class GetCategoriesByUserQueryHandler(ICategoryRepository categoryRepository) : IRequestHandler<GetCategoriesByUserQuery, IReadOnlyList<CategoryDto>>
 {
-	public async Task<IReadOnlyList<CategoryDto>> Handle(
-		GetCategoriesByUserQuery request, CancellationToken cancellationToken)
-	{
-		var categories = await categoryRepository.GetByUserIdAsync(request.UserId, cancellationToken);
-		return [.. categories.Select(CategoryDto.FromEntity)];
-	}
+    public async Task<IReadOnlyList<CategoryDto>> Handle(
+        GetCategoriesByUserQuery request, CancellationToken cancellationToken)
+    {
+        var categories = await categoryRepository.GetByUserIdAsync(request.UserId, cancellationToken);
+        return [.. categories.Select(CategoryDto.FromEntity)];
+    }
 }

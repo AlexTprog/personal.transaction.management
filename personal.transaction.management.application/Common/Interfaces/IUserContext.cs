@@ -2,6 +2,6 @@
 
 public interface IUserContextService
 {
-	Guid UserId { get; }
-	string FullName { get; }
+    Guid UserId { get; }
+    string FullName { get; }
 }

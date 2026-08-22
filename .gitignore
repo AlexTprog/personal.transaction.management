@@ -368,3 +368,7 @@ FodyWeavers.xsd
 # AppSettings
 
 appsettings.development.json
+
+# Visual studio code
+
+/.vscode

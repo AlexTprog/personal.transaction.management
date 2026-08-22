@@ -2,8 +2,8 @@
 
 public enum AccountTypeEnum
 {
-	Cash = 1,
-	Bank = 2,
-	Credit = 3,
-	Digital = 4,
+    Cash = 1,
+    Bank = 2,
+    Credit = 3,
+    Digital = 4,
 }

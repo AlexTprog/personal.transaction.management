@@ -7,18 +7,18 @@ namespace personal.transaction.management.application.Accounts.Commands.CreateAc
 
 public sealed class CreateAccountCommandHandler(IAccountRepository accountRepository, IUnitOfWork unitOfWork) : IRequestHandler<CreateAccountCommand, Guid>
 {
-	public async Task<Guid> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
-	{
-		var money = Money.Of(request.Amount, request.Currency);
-		var account = Account.Create(
-			request.UserId,
-			request.Name,
-			request.AccountType,
-			money);
+    public async Task<Guid> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
+    {
+        var money = Money.Of(request.Amount, request.Currency);
+        var account = Account.Create(
+            request.UserId,
+            request.Name,
+            request.AccountType,
+            money);
 
-		await accountRepository.AddAsync(account, cancellationToken);
-		await unitOfWork.SaveChangesAsync(cancellationToken);
+        await accountRepository.AddAsync(account, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
-		return account.Id;
-	}
+        return account.Id;
+    }
 }

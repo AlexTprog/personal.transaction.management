@@ -8,66 +8,66 @@ namespace personal.transaction.management.domain.entities;
 
 public class Account : BaseAuditable
 {
-	public Guid Id { get; private set; }
-	public Guid UserId { get; private set; }
-	public string Name { get; private set; } = string.Empty;
-	public AccountTypeEnum AccountType { get; private set; }
-	public Currency Currency { get; private set; } = null!;
-	public decimal Balance { get; private set; } = 0m;
-	public bool IsActive { get; private set; }
-	public uint Xmin { get; private set; }
-	private Account() { }
+    public Guid Id { get; private set; }
+    public Guid UserId { get; private set; }
+    public string Name { get; private set; } = string.Empty;
+    public AccountTypeEnum AccountType { get; private set; }
+    public Currency Currency { get; private set; } = null!;
+    public decimal Balance { get; private set; } = 0m;
+    public bool IsActive { get; private set; }
+    public uint Xmin { get; private set; }
+    private Account() { }
 
-	private Account(Guid userId, string name, AccountTypeEnum accountType, Money money)
-	{
-		Id = Guid.NewGuid();
-		UserId = userId;
-		Name = name;
-		AccountType = accountType;
-		Currency = money.Currency;
-		Balance = money.Value;
-		IsActive = true;
-	}
+    private Account(Guid userId, string name, AccountTypeEnum accountType, Money money)
+    {
+        Id = Guid.NewGuid();
+        UserId = userId;
+        Name = name;
+        AccountType = accountType;
+        Currency = money.Currency;
+        Balance = money.Value;
+        IsActive = true;
+    }
 
-	public static Account Create(
-		Guid userId, string name, AccountTypeEnum accountType,
-		Money money)
-	{
-		if (string.IsNullOrWhiteSpace(name))
-			throw new DomainValidationException("Name", "Account name cannot be empty.");
+    public static Account Create(
+        Guid userId, string name, AccountTypeEnum accountType,
+        Money money)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new DomainValidationException("Name", "Account name cannot be empty.");
 
-		return new Account(userId, name.Trim(), accountType, money);
-	}
+        return new Account(userId, name.Trim(), accountType, money);
+    }
 
-	public void Credit(Money amount)
-	{
-		var previousBalance = Balance;
-		Balance += amount.Value;
+    public void Credit(Money amount)
+    {
+        var previousBalance = Balance;
+        Balance += amount.Value;
 
-		RaiseDomainEvent(new AccountBalanceUpdatedEvent(Id, UserId, previousBalance, Balance));
-	}
+        RaiseDomainEvent(new AccountBalanceUpdatedEvent(Id, UserId, previousBalance, Balance));
+    }
 
-	public void Debit(Money amount)
-	{
-		if (AccountType == AccountTypeEnum.Cash && Balance < amount.Value)
-			throw new InsufficientFundsException(Balance, amount.Value, Currency.Code);
+    public void Debit(Money amount)
+    {
+        if (AccountType == AccountTypeEnum.Cash && Balance < amount.Value)
+            throw new InsufficientFundsException(Balance, amount.Value, Currency.Code);
 
-		var previousBalance = Balance;
-		Balance -= amount.Value;
+        var previousBalance = Balance;
+        Balance -= amount.Value;
 
-		RaiseDomainEvent(new AccountBalanceUpdatedEvent(Id, UserId, previousBalance, Balance));
-	}
+        RaiseDomainEvent(new AccountBalanceUpdatedEvent(Id, UserId, previousBalance, Balance));
+    }
 
-	public void Rename(string name)
-	{
-		if (string.IsNullOrWhiteSpace(name))
-			throw new DomainValidationException("Name", "Account name cannot be empty.");
+    public void Rename(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new DomainValidationException("Name", "Account name cannot be empty.");
 
-		Name = name.Trim();
-	}
+        Name = name.Trim();
+    }
 
-	public void Deactivate()
-	{
-		IsActive = false;
-	}
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
 }

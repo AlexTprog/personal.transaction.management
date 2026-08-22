@@ -2,7 +2,7 @@
 
 public enum CategoryTypeEnum
 {
-	Income = 1,
-	Expense = 2,
-	Both = 3,
+    Income = 1,
+    Expense = 2,
+    Both = 3,
 }
