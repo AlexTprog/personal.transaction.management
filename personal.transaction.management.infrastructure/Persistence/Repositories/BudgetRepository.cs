@@ -1,5 +1,5 @@
 using personal.transaction.management.domain.Entities;
-using personal.transaction.management.domain.Repositories;
+using personal.transaction.management.domain.repositories;
 
 namespace personal.transaction.management.infrastructure.Persistence.Repositories;
 

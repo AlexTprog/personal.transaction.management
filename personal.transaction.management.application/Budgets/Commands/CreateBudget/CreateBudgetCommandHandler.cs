@@ -1,7 +1,6 @@
 using MediatR;
 using personal.transaction.management.domain.Entities;
 using personal.transaction.management.domain.repositories;
-using personal.transaction.management.domain.Repositories;
 
 namespace personal.transaction.management.application.Budgets.Commands.CreateBudget;
 

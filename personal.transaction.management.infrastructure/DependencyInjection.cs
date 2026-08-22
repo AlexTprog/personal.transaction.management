@@ -35,6 +35,7 @@ public static class DependencyInjection
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IReportRepository, ReportRepository>();
         services.AddScoped<ISpendingRepository, SpendingRepository>();
+        services.AddScoped<IBudgetRepository, BudgetRepository>();
         services.AddScoped<DatabaseSeeder>();
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ConcurrencyRetryBehavior<,>));
