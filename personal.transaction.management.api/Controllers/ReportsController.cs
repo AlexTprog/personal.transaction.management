@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
+using personal.transaction.management.api.Extensions;
 using personal.transaction.management.application.Reports.Queries.GetCurrentBalance;
 using personal.transaction.management.application.Reports.Queries.GetExpensesByCategory;
 using personal.transaction.management.application.Reports.Queries.GetMonthlyEvolution;
@@ -7,6 +9,7 @@ using personal.transaction.management.application.Reports.Queries.GetPeriodSumma
 namespace personal.transaction.management.api.Controllers;
 
 [Route("api/reports")]
+[EnableRateLimiting(RateLimitingExtensions.ReportsPolicy)]
 public sealed class ReportsController : BaseController
 {
     [HttpGet("monthly-evolution")]

@@ -36,6 +36,7 @@ builder.Services
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
+builder.Services.AddApiRateLimiting();
 
 var allowedOrigins = builder.Configuration.GetSection("CorsOrigins").Get<string[]>();
 builder.Services.AddCors(options =>
@@ -82,6 +83,7 @@ app.UseCors("AppCorsPolicy");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter();
 app.MapControllers();
 
 app.Run();
