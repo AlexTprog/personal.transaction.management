@@ -14,6 +14,8 @@ namespace personal.transaction.management.api.Controllers;
 [Route("api/transactions")]
 public sealed class TransactionsController : BaseController
 {
+    private const string IdempotencyKeyHeader = "Idempotency-Key";
+
     [HttpGet]
     [ProducesResponseType(typeof(PagedResult<TransactionDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetPaged(
@@ -42,9 +44,11 @@ public sealed class TransactionsController : BaseController
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> Create(
         [FromBody] CreateTransactionRequest request,
+        [FromHeader(Name = IdempotencyKeyHeader)] Guid? idempotencyKey,
         CancellationToken cancellationToken)
     {
         var command = new CreateTransactionCommand(
+            idempotencyKey ?? Guid.Empty,
             request.AccountId,
             CurrentUserId,
             request.CategoryId,
@@ -67,9 +71,11 @@ public sealed class TransactionsController : BaseController
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> CreateTransfer(
         [FromBody] CreateTransferRequest request,
+        [FromHeader(Name = IdempotencyKeyHeader)] Guid? idempotencyKey,
         CancellationToken cancellationToken)
     {
         var command = new CreateTransferCommand(
+            idempotencyKey ?? Guid.Empty,
             CurrentUserId,
             request.SourceAccountId,
             request.DestinationAccountId,

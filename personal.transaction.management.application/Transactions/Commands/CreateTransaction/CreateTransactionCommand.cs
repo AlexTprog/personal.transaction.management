@@ -1,9 +1,10 @@
-using MediatR;
+using personal.transaction.management.application.Abstractions;
 using personal.transaction.management.domain.enums;
 
 namespace personal.transaction.management.application.Transactions.Commands.CreateTransaction;
 
 public record CreateTransactionCommand(
+    Guid RequestId,
     Guid AccountId,
     Guid UserId,
     Guid CategoryId,
@@ -14,4 +15,4 @@ public record CreateTransactionCommand(
     DateOnly Date,
     decimal? ExchangeRate,
     string? AttachmentUrl,
-    List<Guid>? TagIds) : IRequest<Guid>;
+    List<Guid>? TagIds) : IdempotentCommand<Guid>(RequestId);

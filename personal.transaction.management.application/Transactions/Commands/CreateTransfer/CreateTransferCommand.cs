@@ -1,8 +1,9 @@
-using MediatR;
+using personal.transaction.management.application.Abstractions;
 
 namespace personal.transaction.management.application.Transactions.Commands.CreateTransfer;
 
 public record CreateTransferCommand(
+    Guid RequestId,
     Guid UserId,
     Guid SourceAccountId,
     Guid DestinationAccountId,
@@ -10,4 +11,4 @@ public record CreateTransferCommand(
     decimal Amount,
     string? Description,
     DateOnly Date,
-    decimal? ExchangeRate) : IRequest<Guid>;
+    decimal? ExchangeRate) : IdempotentCommand<Guid>(RequestId);

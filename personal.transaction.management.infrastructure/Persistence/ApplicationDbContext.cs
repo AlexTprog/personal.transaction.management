@@ -7,6 +7,7 @@ using personal.transaction.management.domain.abstractions;
 using personal.transaction.management.domain.entities;
 using personal.transaction.management.domain.events;
 using personal.transaction.management.domain.repositories;
+using personal.transaction.management.infrastructure.Persistence.Idempotency;
 using personal.transaction.management.infrastructure.Persistence.Outbox;
 
 namespace personal.transaction.management.infrastructure.Persistence;
@@ -21,6 +22,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<TransactionTag> TransactionTags => Set<TransactionTag>();
     public DbSet<Budget> Budgets => Set<Budget>();
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
+    public DbSet<IdempotentRequest> IdempotentRequests => Set<IdempotentRequest>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -39,6 +39,7 @@ public static class DependencyInjection
         services.AddScoped<IBudgetRepository, BudgetRepository>();
         services.AddScoped<DatabaseSeeder>();
 
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(IdempotencyBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ConcurrencyRetryBehavior<,>));
 
         services.Configure<ApplicationSettings>(configuration.GetSection(ApplicationSettings.SectionName));

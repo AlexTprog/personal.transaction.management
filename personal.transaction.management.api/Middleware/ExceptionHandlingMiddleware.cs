@@ -90,6 +90,7 @@ public sealed class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Ex
                 null),
 
             // 422 – business rule violations
+            IdempotencyKeyReuseException or
             InsufficientFundsException or
             TransferIdRequiredException or
             TransferIdForbiddenException or
