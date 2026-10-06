@@ -14,3 +14,16 @@ public sealed class InsufficientFundsException : DomainException
         Currency = currency;
     }
 }
+
+public sealed class AccountCurrencyMismatchException : DomainException
+{
+    public string AccountCurrency { get; }
+    public string TransactionCurrency { get; }
+
+    public AccountCurrencyMismatchException(string accountCurrency, string transactionCurrency)
+        : base($"Account currency '{accountCurrency}' does not match transaction currency '{transactionCurrency}'.")
+    {
+        AccountCurrency = accountCurrency;
+        TransactionCurrency = transactionCurrency;
+    }
+}

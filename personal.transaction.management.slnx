@@ -7,5 +7,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="personal.transaction.management.integration.tests/personal.transaction.management.integration.tests.csproj" />
+    <Project Path="personal.transaction.management.architecture.tests/personal.transaction.management.architecture.tests.csproj" />
+    <Project Path="personal.transaction.management.domain.tests/personal.transaction.management.domain.tests.csproj" />
   </Folder>
 </Solution>

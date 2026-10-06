@@ -46,10 +46,15 @@ public class Transaction : BaseAuditable
     }
 
     public static Transaction Create(
-        Guid accountId, Guid userId, Guid categoryId,
-        Money amount, TransactionTypeEnum transactionType,
-        string? description, DateOnly date,
-        Guid? transferId, decimal? exchangeRate,
+        Guid accountId,
+        Guid userId,
+        Guid categoryId,
+        Money amount,
+        TransactionTypeEnum transactionType,
+        string? description,
+        DateOnly date,
+        Guid? transferId,
+        decimal? exchangeRate,
         string? attachmentUrl)
     {
 

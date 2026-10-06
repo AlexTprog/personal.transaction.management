@@ -10,6 +10,7 @@ using personal.transaction.management.infrastructure.Auth;
 using personal.transaction.management.infrastructure.Configuration;
 using personal.transaction.management.infrastructure.Persistence;
 using personal.transaction.management.infrastructure.Persistence.Behaviors;
+using personal.transaction.management.infrastructure.Persistence.Outbox;
 using personal.transaction.management.infrastructure.Persistence.Repositories;
 
 namespace personal.transaction.management.infrastructure;
@@ -42,10 +43,13 @@ public static class DependencyInjection
 
         services.Configure<ApplicationSettings>(configuration.GetSection(ApplicationSettings.SectionName));
         services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+        services.Configure<OutboxOptions>(configuration.GetSection(OutboxOptions.SectionName));
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUserContextService, UserContextService>();
         services.AddScoped<IConfigurationService, ConfigurationService>();
+
+        services.AddHostedService<OutboxProcessorBackgroundService>();
 
         return services;
     }

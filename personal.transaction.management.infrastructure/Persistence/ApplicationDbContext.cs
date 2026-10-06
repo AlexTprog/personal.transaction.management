@@ -7,6 +7,7 @@ using personal.transaction.management.domain.abstractions;
 using personal.transaction.management.domain.entities;
 using personal.transaction.management.domain.events;
 using personal.transaction.management.domain.repositories;
+using personal.transaction.management.infrastructure.Persistence.Outbox;
 
 namespace personal.transaction.management.infrastructure.Persistence;
 
@@ -19,6 +20,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Tag> Tags => Set<Tag>();
     public DbSet<TransactionTag> TransactionTags => Set<TransactionTag>();
     public DbSet<Budget> Budgets => Set<Budget>();
+    public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -75,6 +77,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
             foreach (var domainEvent in pendingEvents)
             {
+                // Persisted in this same SaveChanges/transaction so the outbox worker can
+                // reliably dispatch it later, without a separate write that could fail
+                // independently of the business data (the dual-write problem).
+                OutboxMessages.Add(OutboxMessage.FromDomainEvent(domainEvent));
+
                 var notificationType = typeof(DomainEventNotification<>)
                     .MakeGenericType(domainEvent.GetType());
 

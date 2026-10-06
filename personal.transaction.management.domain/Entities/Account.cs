@@ -41,21 +41,20 @@ public class Account : BaseAuditable
 
     public void Credit(Money amount)
     {
-        var previousBalance = Balance;
-        Balance += amount.Value;
+        if (!Currency.Code.Equals(amount.Currency.Code, StringComparison.OrdinalIgnoreCase))
+            throw new AccountCurrencyMismatchException(Currency.Code, amount.Currency.Code);
 
-        RaiseDomainEvent(new AccountBalanceUpdatedEvent(Id, UserId, previousBalance, Balance));
+        Balance += amount.Value;
     }
 
     public void Debit(Money amount)
     {
-        if (AccountType == AccountTypeEnum.Cash && Balance < amount.Value)
+        if (!Currency.Code.Equals(amount.Currency.Code, StringComparison.OrdinalIgnoreCase))
+            throw new AccountCurrencyMismatchException(Currency.Code, amount.Currency.Code);
+        if (Balance < amount.Value)
             throw new InsufficientFundsException(Balance, amount.Value, Currency.Code);
 
-        var previousBalance = Balance;
         Balance -= amount.Value;
-
-        RaiseDomainEvent(new AccountBalanceUpdatedEvent(Id, UserId, previousBalance, Balance));
     }
 
     public void Rename(string name)

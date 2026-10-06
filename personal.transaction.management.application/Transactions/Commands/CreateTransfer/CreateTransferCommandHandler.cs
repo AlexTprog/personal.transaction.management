@@ -27,6 +27,7 @@ public sealed class CreateTransferCommandHandler(
         var category = await categoryRepository.GetByIdAsync(request.CategoryId, cancellationToken)
             ?? throw new NotFoundException(nameof(Category), request.CategoryId);
 
+        //TODO: Deberia ser parte del dominio, no del application layer, ya que es una regla de negocio
         bool differentCurrencies = sourceAccount.Currency.Code != destinationAccount.Currency.Code;
 
         if (differentCurrencies && request.ExchangeRate is null)
@@ -35,8 +36,6 @@ public sealed class CreateTransferCommandHandler(
                 "Exchange rate is required when transferring between accounts with different currencies.");
 
         var transferId = Guid.NewGuid();
-        var createdBy = request.UserId.ToString();
-
         var sourceAmount = Money.Of(request.Amount, sourceAccount.Currency);
         var destinationAmount = differentCurrencies
             ? Money.Of(Math.Round(request.Amount * request.ExchangeRate!.Value, 4), destinationAccount.Currency)

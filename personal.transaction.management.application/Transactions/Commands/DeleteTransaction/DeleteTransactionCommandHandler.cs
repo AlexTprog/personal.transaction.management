@@ -24,6 +24,7 @@ public sealed class DeleteTransactionCommandHandler(
             foreach (var leg in legs)
             {
                 leg.Delete();
+                //TODO: El registro deberia realmente eliminarse de la base de datos? Estamos eliminando informacion que deberia poder auditarse, quizas deberiamos considerar un soft delete, o mantener un historial de transacciones eliminadas
                 transactionRepository.Remove(leg);
             }
         }
