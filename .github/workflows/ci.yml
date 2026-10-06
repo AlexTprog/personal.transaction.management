@@ -17,14 +17,14 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Restore
-        run: dotnet restore personal.transaction.management.sln
+        run: dotnet restore personal.transaction.management.slnx
 
       - name: Build
-        run: dotnet build personal.transaction.management.sln --no-restore --configuration Release
+        run: dotnet build personal.transaction.management.slnx --no-restore --configuration Release
 
       - name: Test
         run: >
-          dotnet test personal.transaction.management.sln
+          dotnet test personal.transaction.management.slnx
           --no-build --configuration Release
           --logger "trx;LogFileName=test-results.trx"
           --collect:"XPlat Code Coverage"
