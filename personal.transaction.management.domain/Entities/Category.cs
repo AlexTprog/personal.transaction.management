@@ -54,10 +54,11 @@ public class Category : BaseAuditable
             throw new SystemCategoryModificationException();
 
         ValidateNameAndIcon(name, icon);
+        var color = HexColor.From(hexColor);
 
         Name = name.Trim();
         Icon = icon.Trim();
-        Color = HexColor.From(hexColor);
+        Color = color;
         CategoryType = categoryType;
     }
 
